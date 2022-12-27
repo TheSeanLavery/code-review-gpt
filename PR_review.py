@@ -66,7 +66,7 @@ if response.status_code == 200:
         body = pull_request["body"]
 
         # Combine the title, body, and list of changes into a single string 
-        text = " Review this code as if you were a Lead Dev. Decide if its good or what should be changed: \n" + title+ "\n" +body+ "\n" +(newChanges)
+        text = " Review this code as if you were a Lead Dev. Decide if its good or what should be changed, be very thourough, call out lines of code and format them in a markdown block and explain what should be changed: \n" + title+ "\n" +body+ "\n" +(newChanges)
 
         print(text)
 
