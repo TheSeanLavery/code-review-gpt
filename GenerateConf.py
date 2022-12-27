@@ -1,3 +1,4 @@
+import os
 import webbrowser
 
 # Provide some help to the user
@@ -5,6 +6,13 @@ print("\nYou can obtain your GitHub token at the following URL: https://github.c
 print("You can obtain your OpenAI SDK key at the following URL: https://beta.openai.com/account/api-keys")
 #newline
 print(" ")
+
+#if if the config file already exists, ask the user if they want to overwrite it
+if os.path.exists("secrets.conf"):
+    overwrite = input("A secrets.conf file already exists. Do you want to overwrite it? (y/n): ")
+    if overwrite.lower() == "n":
+        print("Exiting the program...")
+        exit()
 
 # Prompt the user for their GitHub and OpenAI SDK keys
 github_token = input("Enter your GitHub token: ")
