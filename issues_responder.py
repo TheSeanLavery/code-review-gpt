@@ -67,12 +67,11 @@ for issue in issues:
             body = issue["body"]
             response = openai.Completion.create(
                 model="text-davinci-003",
-                prompt="Write a response to this comment as if you are a Senior Developer:\n\n" + body + "\n\n",
-                temperature=0.7,
-                max_tokens=256,
-                top_p=1,
-                frequency_penalty=0,
-                presence_penalty=0
+                prompt="Write a response to this comment as if you are a Senior Developer, be thorough, and ask questsions if the user is unclear:\n\n" + body + "\n\n",
+                # Adjust the parameters to influence the quality of the response
+                temperature=0.7,        # Higher values increase the creativity of the response
+                max_tokens=256,         # Maximum number of tokens in the response
+                top_p=1,                # The proportion of the tokens
             )
             # Create a comment on the issue with the generated response
             url = f"https://api.github.com/repos/{owner}/{repo}/issues/{issue['number']}/comments"
