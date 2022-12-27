@@ -61,4 +61,25 @@ for issue in issues:
                 response = requests.post(url, headers=headers, json=data)
                 print(response.status_code)
                 print(response.json())
+        # If the issue has no comments, generate a response to the issue body
+        else:
+            # Generate a response to the issue body using OpenAI
+            body = issue["body"]
+            response = openai.Completion.create(
+              model="text-davinci-003",
+              prompt="Write a response to this comment as if you are a Senior Developer:\n\n" + body + "\n\n",
+              temperature=0.7,
+              max_tokens=256,
+              top_p=1,
+              frequency_penalty=0,
+              presence_penalty=0
+            )
+            # Create a comment on the issue with the generated response
+            url = f"https://api.github.com/repos/{owner}/{repo}/issues/{issue['number']}/comments"
+            data = {
+                "body": response["choices"][0]["text"]
+            }   
+            response = requests.post(url, headers=headers, json=data)
+            print(response.status_code)
+            print(response.json())
 
