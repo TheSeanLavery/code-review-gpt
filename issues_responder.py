@@ -45,13 +45,13 @@ for issue in issues:
                 # Generate a response to the latest comment using OpenAI
                 body = latest_comment["body"]
                 response = openai.Completion.create(
-                  model="text-davinci-003",
-                  prompt="write a response to this comment:\n\n" + body + "\n\n",
-                  temperature=0.7,
-                  max_tokens=256,
-                  top_p=1,
-                  frequency_penalty=0,
-                  presence_penalty=0
+                    model="text-davinci-003",
+                    prompt="write a response to this comment:\n\n" + body + "\n\n",
+                    temperature=0.7,
+                    max_tokens=256,
+                    top_p=1,
+                    frequency_penalty=0,
+                    presence_penalty=0
                 )
                 # Create a comment on the issue with the generated response
                 url = f"https://api.github.com/repos/{owner}/{repo}/issues/{issue['number']}/comments"
@@ -66,13 +66,13 @@ for issue in issues:
             # Generate a response to the issue body using OpenAI
             body = issue["body"]
             response = openai.Completion.create(
-              model="text-davinci-003",
-              prompt="Write a response to this comment as if you are a Senior Developer:\n\n" + body + "\n\n",
-              temperature=0.7,
-              max_tokens=256,
-              top_p=1,
-              frequency_penalty=0,
-              presence_penalty=0
+                model="text-davinci-003",
+                prompt="Write a response to this comment as if you are a Senior Developer:\n\n" + body + "\n\n",
+                temperature=0.7,
+                max_tokens=256,
+                top_p=1,
+                frequency_penalty=0,
+                presence_penalty=0
             )
             # Create a comment on the issue with the generated response
             url = f"https://api.github.com/repos/{owner}/{repo}/issues/{issue['number']}/comments"
