@@ -86,6 +86,10 @@ if response.status_code == 200:
         # Get the title and body of the pull request
         title = pull_request["title"]
         body = pull_request["body"]
+        if(body == None):
+            body = ""
+        if(title == None):
+            title = ""
 
         # Reset the text variable for each iteration
         text = " Review this code as if you were a Lead Dev. Give it a total score out of 100. Decide if its good or what should be changed, be very thourough, call out lines of code and format them in a markdown block and explain what should be changed: \n" + title+ "\n" +body+ "\n" +(new_changes)
