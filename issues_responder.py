@@ -149,6 +149,3 @@ def ReplyToAllIssues():
 
 get_github_rate_limit()
 
-while(True):
-    ReplyToAllIssues()
-    sleep(15)
