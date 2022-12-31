@@ -1,12 +1,11 @@
 import logging
 import os
 import requests
-import configparser
 import openai
 
 # Extract the secrets from the configuration data
-github_token = os.environ['GITHUB_TOKEN']
-openai_sdk_token = os.environ['OPENAI_SDK']
+GITHUB_TOKEN = os.environ['GITHUB_TOKEN']
+OPENAI_SDK = os.environ['OPENAI_SDK']
 
 # Replace with the owner, repository name, and issue number of your repository
 owner = "TheSeanLavery"
@@ -14,14 +13,14 @@ repo = "code-review-gpt"
 issue_number = 1
 
 # Set the API key for the openai library
-openai.api_key = openai_sdk_token
+openai.api_key = OPENAI_SDK
 
 # Set the base URL for the GitHub API
 base_url = "https://api.github.com"
 
 # Set the headers for the HTTP requests
 headers = {
-    "Authorization": f"Token {github_token}",
+    "Authorization": f"Token {GITHUB_TOKEN}",
     "Accept": "application/vnd.github+json",
     "Content-Type": "application/json"
 }
@@ -45,7 +44,10 @@ if response.status_code == 200:
 
     # Iterate through each pull request
     for pull_request in pull_requests:
-
+        
+        # Get the number of the pull request
+        number = pull_request["number"]
+        
         pull_request = requests.get(f"{base_url}/repos/{owner}/{repo}/pulls/{number}", headers=headers)
 
         if pull_request.status_code == 200:
@@ -53,8 +55,7 @@ if response.status_code == 200:
         else:
             logging.error(f"Error getting pull request {number}: {pull_request.status_code} {pull_request.reason}")
 
-        # Get the number of the pull request
-        number = pull_request["number"]
+        
 
         # Get the list of changes for the pull request
         response = requests.get(f"{base_url}/repos/{owner}/{repo}/pulls/{number}/files", headers=headers)
