@@ -48,11 +48,22 @@ if response.status_code == 200:
 
     # Iterate through each pull request
     for pull_request in pull_requests:
+
+        pull_request = requests.get(f"{base_url}/repos/{owner}/{repo}/pulls/{number}", headers=headers)
+
+        if pull_request.status_code == 200:
+            pull_request = pull_request.json()
+        else:
+            logging.error(f"Error getting pull request {number}: {pull_request.status_code} {pull_request.reason}")
+
         # Get the number of the pull request
         number = pull_request["number"]
 
         # Get the list of changes for the pull request
         response = requests.get(f"{base_url}/repos/{owner}/{repo}/pulls/{number}/files", headers=headers)
+
+        
+
 
         # Check the status code to make sure the request was successful
         if response.status_code == 200:
@@ -70,12 +81,18 @@ if response.status_code == 200:
         else:
             logging.error(f"Error getting changes for pull request {number}: {response.status_code} {response.reason}")
 
+        
+
         # Get the title and body of the pull request
         title = pull_request["title"]
         body = pull_request["body"]
+        if(body == None):
+            body = ""
+        if(title == None):
+            title = ""
 
         # Reset the text variable for each iteration
-        text = " Review this code as if you were a Lead Dev. Decide if its good or what should be changed, be very thourough, call out lines of code and format them in a markdown block and explain what should be changed: \n" + title+ "\n" +body+ "\n" +(new_changes)
+        text = " Review this code as if you were a Lead Dev. Give it a total score out of 100. Decide if its good or what should be changed, be very thourough, call out lines of code and format them in a markdown block and explain what should be changed: \n" + title+ "\n" +body+ "\n" +(new_changes)
 
         # Generate a response using the openai library
         response = openai.Completion.create(
@@ -105,3 +122,5 @@ if response.status_code == 200:
             logging.error(f"Error posting comment on pull request {number}: {response.status_code} {response.reason}")
 else:
     logging.error(f"Error getting pull requests: {response.status_code} {response.reason}")
+
+
