@@ -48,12 +48,7 @@ jobs:
           docker build .
           docker login -u $DOCKER_USER -p $DOCKER_PASS
           docker push theseanlavery/code-review-gpt
-          ssh root@example.com 
-          docker pull theseanlavery/code-review-gpt
-          docker stop code-review-gpt
-          docker rm code-review-gpt
-          docker run --name=code-review-gpt --restart=always -v $PWD:/app -d theseanlavery/code-review-gpt
-          ENDSSH
+          
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows

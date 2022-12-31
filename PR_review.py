@@ -123,29 +123,4 @@ if response.status_code == 200:
 else:
     logging.error(f"Error getting pull requests: {response.status_code} {response.reason}")
 
-    import pytest
-from unittest.mock import patch
 
-def test_requests_import():
-    assert "requests" in globals()
-
-def test_secrets_parsed():
-    assert github_token == config["DEFAULT"]["GITHUB_TOKEN"]
-    assert openai_sdk_token == config["DEFAULT"]["OPENAI_SDK"]
-
-def test_headers_and_base_url_initialized():
-    assert base_url == "https://api.github.com"
-    assert headers["Authorization"] == f"Token {github_token}"
-    assert headers["Accept"] == "application/vnd.github+json"
-    assert headers["Content-Type"] == "application/json"
-
-def test_get_pull_requests_successful():
-    assert response.status_code == 200
-
-def test_get_changes_successful():
-    assert response.status_code == 200
-
-def test_openai_call_correct():
-    with patch("openai.Completion.create") as mock_create:
-        openai.Completion.create(model="text-davinci-003", prompt=text, temperature=0.7, max_tokens=1000, top_p=1, frequency_penalty=0, presence_penalty=0)
-        mock_create.assert_called_with(model="text-davinci-003", prompt=text, temperature=0.7, max_tokens=1000, top_p=1, frequency_penalty=0, presence_penalty=0)
