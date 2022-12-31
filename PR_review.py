@@ -1,15 +1,12 @@
 import logging
+import os
 import requests
 import configparser
 import openai
 
-# Read the secrets from the configuration file
-config = configparser.ConfigParser()
-config.read("secrets.conf")
-
 # Extract the secrets from the configuration data
-github_token = config["DEFAULT"]["GITHUB_TOKEN"]
-openai_sdk_token = config["DEFAULT"]["OPENAI_SDK"]
+github_token = os.environ['GITHUB_TOKEN']
+openai_sdk_token = os.environ['OPENAI_SDK']
 
 # Replace with the owner, repository name, and issue number of your repository
 owner = "TheSeanLavery"
