@@ -10,7 +10,15 @@ def webhook():
   # Do something with the payload, such as updating an external issue tracker
   # or triggering a CI build
   print(payload)
-  return 'Success'
+
+  #add the payload to a log file, create a new log file if it doesn't exist
+  with open('log.txt', 'a') as f:
+    f.write(str(payload))
+    f.write(' ')
+  
+  # Return a 200 OK response to let GitHub know the webhook was received
+  # successfully
+  return '', 200
 
 if __name__ == '__main__':
   from waitress import serve
