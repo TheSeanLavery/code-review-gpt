@@ -20,8 +20,16 @@ def webhook():
   # successfully
   return '', 200
 
+
+@app.route('/webhook', methods=['GET'])
+def webhook_get():
+  #serve the log file
+  with open('log.txt', 'r') as f:
+    log = f.read()
+  return log
+
 if __name__ == '__main__':
   from waitress import serve
   serve(app, host="0.0.0.0", port=8080)
-  print("Server started on port 8080")
+  print("Server started on port 8080")  
 
