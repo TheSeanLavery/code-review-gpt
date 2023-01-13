@@ -21,7 +21,7 @@ def webhook():
   return '', 200
 
 
-@app.route('/webhook', methods=['GET'])
+@app.route('/webhookget', methods=['GET'])
 def webhook_get():
   #serve the log file
   with open('log.txt', 'r') as f:
