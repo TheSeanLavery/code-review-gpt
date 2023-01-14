@@ -17,6 +17,7 @@ def webhook():
 
   #check if this a pull request or an issue
   if issue != None:
+    print("issue")
     #get the issue number
     issue_number = payload['issue']['number']
     #get the issue title
@@ -35,6 +36,7 @@ def webhook():
 
 
   if pull_request != None:
+    print("Pull request")
     #get the pull request number
     pull_request_number = payload['pull_request']['number']
     #get the pull request title
