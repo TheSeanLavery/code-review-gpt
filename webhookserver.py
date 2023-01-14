@@ -10,8 +10,6 @@ def webhook():
   # Get the JSON payload sent by GitHub
   payload = request.get_json()
 
-  #get the action type
-  action = payload['action']
 
   
   pull_request = payload.get('pull_request', None)
