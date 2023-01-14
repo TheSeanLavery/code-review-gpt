@@ -1,6 +1,7 @@
 from flask import Flask, request
 
 import issues_responder
+import PR_review
 
 app = Flask(__name__)
 
@@ -50,7 +51,8 @@ def webhook():
     pull_request_user = payload['pull_request']['user']['login']
     #get the pull request user avatar
     pull_request_user_avatar = payload['pull_request']['user']['avatar_url']
-
+    
+    PR_review.ReviewPR(pull_request_number)
 
 
 

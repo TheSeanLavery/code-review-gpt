@@ -25,7 +25,7 @@ headers = {
     "Content-Type": "application/json"
 }
 
-def ReviewPR(owner, repo, number):
+def ReviewPR(number, owner = owner, repo = repo):
     
     pull_request = requests.get(f"{base_url}/repos/{owner}/{repo}/pulls/{number}", headers=headers)
 
@@ -95,7 +95,7 @@ def ReviewPR(owner, repo, number):
     else:
         logging.error(f"Error posting comment on pull request {number}: {response.status_code} {response.reason}")
 
-def ReviewAllPR(owner, repo):
+def ReviewAllPR(owner = owner, repo = repo):
 
     # Get the list of pull requests for the repository
     response = requests.get(f"{base_url}/repos/{owner}/{repo}/pulls", headers=headers)
