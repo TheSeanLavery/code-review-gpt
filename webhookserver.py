@@ -12,8 +12,12 @@ def webhook():
   #get the action type
   action = payload['action']
 
+  
+  pull_request = payload.get('pull_request', None)
+  issue = payload.get('issue', None)
+
   #check if this a pull request or an issue
-  if payload['issue']:
+  if issue != None:
     #get the issue number
     issue_number = payload['issue']['number']
     #get the issue title
@@ -31,7 +35,7 @@ def webhook():
     issues_responder.respond_to_issue(issue_number)
 
 
-  if payload['pull_request']:
+  if pull_request != None:
     #get the pull request number
     pull_request_number = payload['pull_request']['number']
     #get the pull request title
