@@ -5,6 +5,7 @@ import configparser
 import openai
 
 
+
 # Extract the secrets from the configuration data
 github_token = os.environ['GITHUB_TOKEN']
 openai_token = os.environ['OPENAI_SDK']
@@ -23,6 +24,8 @@ headers = {
     "Accept": "application/vnd.github+json"
 }
 
+
+#This only returns the text for the reply doesn't post it
 def generate_reply_to_issue(issue_number):
     # Fetch the details of the issue
     url = f"https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}"
@@ -114,6 +117,8 @@ def get_latest_comment(issue_number):
     latest_comment = comments[-1]
     return latest_comment
 
+
+#call this to generate a reply to specific issue
 def respond_to_issue(issue_number):
     # Fetch the details of the issue
     url = f"https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}"
@@ -141,6 +146,9 @@ def respond_to_issue(issue_number):
         url = f"https://api.github.com/repos/{owner}/{repo}/issues/{issue['number']}/comments"
         response = requests.post(url, headers=headers, json=data)
    
+
+#call this to generate all outstanding issues, its really unoptimised and will 
+# probably get rate limited if you run this too often or have too many issues
 def ReplyToAllIssues():
     issues = get_list_of_issues()
     # Reply with OpenAI to issues that have been commented on by other users
