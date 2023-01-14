@@ -14,12 +14,20 @@ def webhook():
   #add the payload to a log file, create a new log file if it doesn't exist
   with open('log.txt', 'a') as f:
     f.write(str(payload))
-    f.write(' ')
+    f.write('\n')
   
   # Return a 200 OK response to let GitHub know the webhook was received
   # successfully
   return '', 200
 
+
+#delete the logfile route
+@app.route('/webhookdelete', methods=['GET'])
+def webhook_delete():
+  #delete the log file
+  with open('log.txt', 'w') as f:
+    f.write('')
+  return 'Log file deleted'
 
 @app.route('/webhookget', methods=['GET'])
 def webhook_get():
